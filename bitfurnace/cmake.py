@@ -3,8 +3,9 @@ from bitfurnace.util import variables, run
 
 
 class CMake(RecipeBase):
+    # assert False
     if variables.target_platform.startswith('emscripten'):
-        configure_cmd = "emcmake cmake"
+        configure_cmd = ["emcmake", "cmake"]
     else:
         configure_cmd = "cmake"
 
@@ -15,6 +16,9 @@ class CMake(RecipeBase):
     workdir = variables.src_dir / "build"
 
     default_configure_args = [
+        "-DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=true",
+        "-DCMAKE_VERBOSE_MAKEFILE:BOOL=ON",
+        "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON",
         f"-DCMAKE_INSTALL_PREFIX={variables.prefix}",
         f"-DCMAKE_PREFIX_PATH={variables.prefix}",
         "-DCMAKE_INSTALL_LIBDIR=lib",
@@ -43,4 +47,4 @@ class CMake(RecipeBase):
         run(self.build_cmd, cwd=self.workdir)
 
     def install(self):
-        run([self.build_cmd, "install"], cwd=self.workdir)
+        run([self.build_cmd, "install", "--verbose"], cwd=self.workdir)

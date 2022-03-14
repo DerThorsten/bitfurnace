@@ -77,5 +77,6 @@ def fancy_print(args):
 
 
 def run(*args, **kwargs):
+    print("WUP")
     fancy_print(args[0])
-    subprocess.check_call(*args, **kwargs)
+    subprocess.check_call(*args, **kwargs, env=os.environ)

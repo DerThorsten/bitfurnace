@@ -19,7 +19,7 @@ def run_recipe(r):
 if __name__ == "__main__":
     temp_recipe = "rendered_build.py"
     with open(temp_recipe, "wb") as fo:
-        # header = header.format(bitfurnace_dir=Path(__file__).parent[0])
+        header = header.format(bitfurnace_dir=Path(__file__).parent[0])
         fo.write(header.encode("utf-8"))
         with open(sys.argv[1], "rb") as fi:
             fo.write(fi.read())
