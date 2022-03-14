@@ -44,7 +44,7 @@ class CMake(RecipeBase):
         return args
 
     def build(self):
-        run(self.build_cmd, cwd=self.workdir)
+        self.run_cmd(self.build_cmd)
 
     def install(self):
-        run([self.build_cmd, "install", "--verbose"], cwd=self.workdir)
+        self.run_cmd([self.build_cmd, "install", "--verbose"])
